@@ -9,7 +9,12 @@ var player, playerBase, playerArcher, player_arm;
 var baseimage;
 var arm;
 var angle;
+//tn es Target Number, y lo voy a usar para poder anadirte una flecha y un objetivo cada que le des a un objetivo.
+var tn = 4;
 var arrows = [];
+var targets = [];
+
+
 function preload() {
   backgroundImg = loadImage("./assets/background.png");
   baseimage = loadImage("./assets/base.png");
@@ -27,6 +32,7 @@ function setup() {
   // clases
   
   arm = new Arm(270, 250, angle, 120, 40);
+  
   // objetos
   var options = {
     isStatic: true
@@ -41,7 +47,9 @@ function setup() {
   player = Bodies.rectangle(215, 150, 100, 200, options);
   World.add(world, player);
 
-
+  
+   
+  
 
 }
 
@@ -56,6 +64,7 @@ function draw() {
   Engine.update(engine);
   // ejecusion de funsiones de clases
   arm.build();
+  spawn_targets();
   // comprovador del disparo para apareser la flecha
   
   
@@ -74,13 +83,14 @@ function draw() {
 }
 // funcion disparar
 function keyReleased(e) {
-  if (e.keyCode === LEFT_ARROW) {
+  if (e.keyCode === LEFT_ARROW && arrows.length < tn + 1) {
     console.log("<;");
     arrows[arrows.length - 1].shoot();
+    amo++
   }
 }
 function keyPressed(e){
-  if (e.keyCode === LEFT_ARROW) {
+  if (e.keyCode === LEFT_ARROW && arrows.length < tn) {
     
       shooting = new Arrow(285,200);
       arrows.push(shooting);
@@ -93,3 +103,21 @@ function keyPressed(e){
     bullet.texture()
     }
   }
+  // no se te olvide. Este es el coigo para poner tableros de objetivo.
+function spawn_targets(){
+  if (targets.length > 0){
+  if (targets.length < tn){
+    target = new Target(width - random([120,200,180,160]),height - random([70, 200,100,300,350,400,]));
+    
+    targets.push(target);
+  }
+
+  for (t = 0; t < targets.length; t++){
+    targets[t].texture();
+  }
+}else{
+  target = new Target(width + random([-40, -80, -120, -20]),height - random([60, 200,200]));
+    targets.push(target);
+   
+}
+}
