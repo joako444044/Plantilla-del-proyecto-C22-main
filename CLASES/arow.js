@@ -23,11 +23,27 @@ class Arrow {
         aper = true;
     }
     texture() {
-        var position = this.projectile.position;
+       
+        var tmpAngle;
+    if (this.projectile.velocity.y <= 3) {
+      
+        tmpAngle = arm.angle + PI / 2 + 90;
+        
+        
+    }else {
+        tmpAngle = Math.atan(this.projectile.velocity.y / this.projectile.velocity.x) + 90;
+  
+    }
+      Matter.Body.setAngle(this.projectile, tmpAngle);
+  
+      var position = this.projectile.position;
+      var angle = this.projectile.angle;
+  
+
         push();
         imageMode(CENTER);
         translate(position.x, position.y)
-        rotate(arm.angle + 95);
+        rotate(angle);
         image(this.arrow, 0, 0, 60, 21);
 
         pop();

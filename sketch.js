@@ -72,21 +72,27 @@ function draw() {
   image(baseimage, playerBase.position.x, playerBase.position.y, 180, 150);
   image(playerimage, player.position.x, player.position.y, 70, 200)
   
+  for (i = 0;i < arrows.length; i++){
+    create_arrow(arrows[i])
+  
+  }
+  
   // Título
   fill("#FFFF");
   textAlign("center");
   textSize(40);
   text("TIRO CON ARCO ÉPICO", width / 2, 100);
-  for (i = 0;i < arrows.length; i++){
-    create_arrow(arrows[i])
-  }
+  fill("#FFFF");
+  textAlign("center");
+  textSize(40);
+  text("flechas: " + (tn - arrows.length), 150,150);
 }
 // funcion disparar
 function keyReleased(e) {
   if (e.keyCode === LEFT_ARROW && arrows.length < tn + 1) {
     console.log("<;");
     arrows[arrows.length - 1].shoot();
-    amo++
+    
   }
 }
 function keyPressed(e){
