@@ -86,6 +86,9 @@ function draw() {
   textAlign("center");
   textSize(40);
   text("flechas: " + (tn - arrows.length), 150, 150);
+  textAlign("center");
+  textSize(40);
+  text("score: " + (tn - 4) + "/50", 650, 150);
   
   spawn_targets();
 }
@@ -148,10 +151,38 @@ function target_collided_arrow(index){
       targets[t].remove(t);
       }
       arrows[index].remove(index);
-     
+      if (tn - arrows.length <= 0){
+        game_over();
+      }else if ((tn - 4) - arrows.length >= 50){
+        winner();
+      }
      
     }
     
 }
 }
+}
+
+function game_over(){
+  
+  swal({
+    title: "Fin del jueguo",
+    text: "buen intento, tu score fue de: " + (tn - 4) + "/50",
+    icon:"./assets/broken_heart_PNG23.png" ,
+    button:"volver a intentar",
+
+  }).then (name => {
+  location.reload();
+  });
+}
+function winner(){
+  swal({
+    title: "Fin del jueguo",
+    text: "ganaste!!!!!",
+    icon:"./assets/crown.png" ,
+    button:"volver a jugar",
+
+  }).then (name => {
+  location.reload();
+  });
 }
